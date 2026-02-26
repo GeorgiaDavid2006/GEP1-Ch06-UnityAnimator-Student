@@ -1,16 +1,27 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CubeSpinner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Animator animController;
+
+    private int isRotatingHash = Animator.StringToHash("isRotating");
+
     void Start()
     {
-        
+        animController = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ToggleSpin(InputAction.CallbackContext context)
     {
-        
+        if (context.performed && animController.GetBool(isRotatingHash) == true)
+        {
+            animController.SetBool(isRotatingHash, false);
+        }
+
+        else if (context.performed && animController.GetBool(isRotatingHash) == false)
+        {
+            animController.SetBool(isRotatingHash, true);
+        }
     }
 }
